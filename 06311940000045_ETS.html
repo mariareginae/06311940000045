@@ -1,0 +1,164 @@
+<html>
+
+<head>
+    <title>
+        Maria Regina Ekaristi - 06311940000045
+    </title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<h1 class = "ETS">
+    Evaluasi Tengah Semester
+    Visualisasi Informasi
+</h1>
+<h3 class = "Identity">
+    ===== Maria Regina Ekaristi - 06311940000045 - Aktuaria =====
+</h3    >
+
+<style>
+    h1 {
+      color:rgb(120, 0, 0);
+    }
+    h3 {
+      color:rgb(194, 101, 124);
+    }
+    .ETS {
+      text-align: center;
+    }
+    .Identity {
+      text-align: center;
+    }
+</style>
+
+<body>
+    <div class="chart" style="position:relative; height: 25vh; width: 50vw; margin: auto;">
+        <canvas id="myChart"></canvas>
+    </div>
+    <script>
+        const labels = [
+            'Papua New Guinea',
+            'Central African Republic',
+            'Oceania',
+            'Solomon Islands',
+            'Afghanistan',
+            'Somalia',
+            'Guinea-Bissau',
+            'Guinea',
+            'Chad',
+            'South Sudan'
+        ];
+        const dataFirstSkip = [
+            218.877909131397,
+            153.341456782367,
+            167.313906846543,
+            168.817786543077,
+            134.993753068704,
+            147.889487849604,
+            137.343109735761,
+            140.171092702377,
+            126.191932056835,
+            129.423785759803
+        ];
+        const dataMiddleSkip = [
+            25.816422280486,
+            43.1576001714344,
+            28.0829316525603,
+            18.3429976185578,
+            45.7376623931767,
+            17.1143411815384,
+            22.9806206051962,
+            18.7349410128008,
+            31.1389131652189,
+            24.9235624428707
+        ];
+        const dataLastSkip = [
+            0.952873891669293,
+            5.94158854356542,
+            0.716766127369018,
+            0.148964739567669,
+            5.8106248922515,
+            1.62140967720477,
+            2.6709604703971,
+            2.91443335297079,
+            3.59143074426924,
+            3.48970445956363
+        ];
+
+        dataFirstSkip[1] = null;
+        dataMiddleSkip[Number.parseInt(dataMiddleSkip.length / 2, 10)] = null;
+        dataLastSkip[dataLastSkip.length - 2] = null;   
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Indoor air pollution',
+                    data: dataFirstSkip,
+                    borderColor: 'rgb(120, 0, 0)',
+                    backgroundColor: 'rgb(120, 0, 0, 0.1)',
+                    pointBackgroundColor: 'rgb(120, 0, 0)'
+                },
+                {
+                    label: 'Outdoor particulate matter',
+                    data: dataMiddleSkip,
+                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgb(255, 99, 132, 0.1)',
+                    pointBackgroundColor: 'rgb(255, 99, 132)'
+                },
+                {
+                    label: 'Outdoor ozone pollution',
+                    data: dataLastSkip,
+                    borderColor: 'rgb(194, 101, 124)',
+                    backgroundColor: 'rgb(194, 101, 124, 0.1)',
+                    pointBackgroundColor: 'rgb(194, 101, 124)'
+                }
+            ]
+        };
+
+        const config = {
+            type: 'radar',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Top 10 Death Rate Countries due to Air Pollution',
+                    },
+                    legend: {
+                        display: true,
+                        position: "bottom",
+                        labels: {
+                            color: 'rgb(194, 101, 124)'
+                        }
+                    }
+                },
+                animations: {
+                    y: {
+                        easing: 'easeOutBack',
+                        from: (ctx) => {
+                            if (ctx.type === 'data') {
+                                if (ctx.mode === 'middle' && !ctx.dropped) {
+                                    ctx.dropped = true;
+                                    return 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }   
+        }
+
+        module.exports = {
+            config: config
+        };
+    </script>
+    <script>
+        const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+        );
+    </script>
+</body>
+
+</html>
